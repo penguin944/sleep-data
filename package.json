@@ -1,0 +1,35 @@
+{
+  "name": "sleep-data",
+  "description": "Library to parse data from sleep-related medical equipment.",
+  "version": "0.0.1",
+  "author": {
+    "name": "Mike Pleimann",
+    "email": "crap944-github@yahoo.com",
+    "url": "https://penguin944.github.io"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/penguin944/sleep-data.git"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "gulp build",
+    "run": "node dist/index.js"
+  },
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "*",
+    "gulp-clean": "*",
+    "gulp-plumber": "^1.0.1",
+    "gulp-tsc": "*",
+    "gulp-watch": "^4.3.5",
+    "merge2": "^0.3.6"
+  },
+  "dependencies": {
+    "lodash": "*",
+    "moment": "^2.10.6",
+    "rxjs": "*"
+  }
+}

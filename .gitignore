@@ -1,0 +1,9 @@
+.idea
+*.iml
+
+dis
+
+node_modules
+*.log
+
+src/typings
