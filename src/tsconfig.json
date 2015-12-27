@@ -4,6 +4,7 @@
 		"target": "es2015",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
+		"experimentalAsyncFunctions": true,
 		"noImplicitAny": true,
 		"removeComments": false,
 		"preserveConstEnums": true,

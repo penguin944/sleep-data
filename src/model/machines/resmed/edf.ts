@@ -1,6 +1,5 @@
 'use strict';
-
-import { jBinary } from 'jBinary';
+/// <reference path="../../typings/tsd.d.ts"/>
 
 export class EDFData{
 	header: EDFHeader;
@@ -28,7 +27,7 @@ export class EDFHeader{
 	digitalMax: number[];
 	prefilterings: string[];
 	numberOfSamples: number[];
-	reserved: Buffer;
+	reserved: ArrayBuffer;
 }
 
 export class EDFSignal{
@@ -86,9 +85,9 @@ export class EDFConstants{
 
 	/** The size of the EDF-Header-Record containing information about the recording */
 	public static HEADER_SIZE_RECORDING_INFO
-		= EDFConstants.IDENTIFICATION_CODE_SIZE + EDFConstants.LOCAL_SUBJECT_IDENTIFICATION_SIZE + EDFConstants.LOCAL_REOCRDING_IDENTIFICATION_SIZE
+		= EDFConstants.IDENTIFICATION_CODE_SIZE + EDFConstants.LOCAL_SUBJECT_IDENTIFICATION_SIZE + EDFConstants.LOCAL_RECORDING_IDENTIFICATION_SIZE
 			+ EDFConstants.START_DATE_SIZE + EDFConstants.START_TIME_SIZE + EDFConstants.HEADER_SIZE + EDFConstants.DATA_FORMAT_VERSION_SIZE
-			+ EDFConstants.DURATION_DATA_RECORDS_SIZE + EDFConstants.NUMBER_OF_DATA_RECORDS_SIZE + EDFConstants.NUMBER_OF_CHANELS_SIZE;
+			+ EDFConstants.DURATION_DATA_RECORDS_SIZE + EDFConstants.NUMBER_OF_DATA_RECORDS_SIZE + EDFConstants.NUMBER_OF_CHANNELS_SIZE;
 
 	/** The size per channel of the EDF-Header-Record containing information a channel of the recording */
 	public static HEADER_SIZE_PER_CHANNEL

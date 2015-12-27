@@ -1,16 +1,19 @@
 'use strict';
-
-import * as fs from 'fs';
-import * as jbinary from 'jbinary';
+/// <reference path="../../typings/tsd.d.ts"/>
 
 import { EDFHeader } from './edf';
+import { Session } from '../../session';
 
 export class Parser{
+	static parse(fileName: string): Session{
+		let header = Parser.parseHeader();
 
-	constructor(fileName: string){
+		let session = new Session(0);
+
+		return session;
 	}
 
-	parseHeader(): EDFHeader{
+	static parseHeader(): EDFHeader{
 		let header = new EDFHeader();
 
 		return header;

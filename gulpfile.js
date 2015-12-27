@@ -19,12 +19,12 @@ gulp.task('copy', () => {
 });
 
 gulp.task('watch', ['typescript'], () => {
-    return gulp.watch('./src/**/*.ts', ['typescript'])
+    return watch('./src/**/*.ts', ['typescript'])
         .pipe(plumber());
 });
 
 gulp.task('typescript', () => {
-	let tsResult = gulp.src(['./src/**/*.ts', '!./src/typings/**'])
+	return gulp.src(['./src/**/*.ts', '!./src/typings/**'])
 		.pipe(typescript({
 			noExternalResolve: true,
 			module: "commonjs",
@@ -36,12 +36,7 @@ gulp.task('typescript', () => {
 			experimentalDecorators: true,
 			emitDecoratorMetadata: true
 		})
-	);
-		
-	return merge([ // Merge the two output streams, so this task is finished when the IO of both operations are done. 
-		tsResult.dts.pipe(gulp.dest('release/definitions')),
-		tsResult.js.pipe(gulp.dest('release/js'))
-	]);
+	).pipe(gulp.dest('dist'));
 });
 
 gulp.task('build', ['clean', 'typescript', 'copy']);

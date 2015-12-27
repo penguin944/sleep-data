@@ -25,7 +25,8 @@
     "gulp-plumber": "^1.0.1",
     "gulp-tsc": "*",
     "gulp-watch": "^4.3.5",
-    "merge2": "^0.3.6"
+    "merge2": "^0.3.6",
+    "tsd": "^0.6.5"
   },
   "dependencies": {
     "jbinary": "^2.1.3",
