@@ -6,6 +6,8 @@ var watch = require('gulp-watch');
 var del = require('del');
 var merge = require('merge2');
 var plumber = require('gulp-plumber');
+var mocha = require('jasmine');
+var karma = require('karma');
 
 gulp.task('clean', () => {
 	return del([
@@ -37,8 +39,8 @@ gulp.task('typescript', () => {
 			emitDecoratorMetadata: true
 		})
 	);
-		
-	return merge([ // Merge the two output streams, so this task is finished when the IO of both operations are done. 
+
+	return merge([ // Merge the two output streams, so this task is finished when the IO of both operations are done.
 		tsResult.dts.pipe(gulp.dest('release/definitions')),
 		tsResult.js.pipe(gulp.dest('release/js'))
 	]);

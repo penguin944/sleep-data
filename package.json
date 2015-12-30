@@ -20,12 +20,18 @@
   },
   "devDependencies": {
     "del": "^2.2.0",
+    "es6-module-loader": "^0.17.9",
     "gulp": "*",
     "gulp-clean": "*",
     "gulp-plumber": "^1.0.1",
     "gulp-tsc": "*",
     "gulp-watch": "^4.3.5",
-    "merge2": "^0.3.6"
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.16",
+    "karma-jasmine": "^0.3.6",
+    "karma-systemjs": "^0.10.0",
+    "merge2": "^0.3.6",
+    "systemjs": "^0.19.9"
   },
   "dependencies": {
     "jbinary": "^2.1.3",
