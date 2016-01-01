@@ -1,6 +1,6 @@
 {
 	"version": "0.1.0",
-	"command": "gulp",
+	"command": "npm",
 	"isShellCommand": true,
 	"showOutput": "always",
 	"args": [
@@ -8,10 +8,22 @@
 	],
 	"tasks": [
 		{
-			"taskName": "watch",
-			"args": [],
+			"taskName": "tsc",
+			"suppressTaskName": true,
+			"args": ["run", "tsc"],
 			"isBuildCommand": true,
 			"isWatching": true,
+			"problemMatcher": [
+				"$tsc",
+				"$jshint"
+			]
+		},
+
+		{
+			"taskName": "test",
+			"args": [],
+			"isTestCommand": true,
+			"isWatching": false,
 			"problemMatcher": [
 				"$tsc",
 				"$jshint"

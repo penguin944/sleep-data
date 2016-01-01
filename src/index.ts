@@ -1,8 +1,9 @@
 'use strict';
 /// <reference path="typings/tsd.d.ts"/>
 
-import { Machine } from './model/machine';
-import { Channel, ChannelType } from './model/channel';
-import { Session } from './model/session';
+import Parser from "./model/machines/resmed/parser";
 
-console.log('hello sleep-data');
+let parser: Parser = new Parser("data/resmed/airsense10/STR.edf");
+let header = parser.parseHeader();
+
+console.log(JSON.stringify(header));

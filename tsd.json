@@ -8,11 +8,8 @@
 		"node/node.d.ts": {
 			"commit": "1da639a106527e0c4010b354a1efe52a3059a291"
 		},
-		"jbinary/jbinary.d.ts": {
-			"commit": "1ffc055e50f0df255da310485a7871c6f894e370"
-		},
-		"jdataview/jdataview.d.ts": {
-			"commit": "1ffc055e50f0df255da310485a7871c6f894e370"
+		"jasmine/jasmine.d.ts": {
+			"commit": "dc9dabe74a5be62613b17a3605309783a12ff28a"
 		}
 	}
 }

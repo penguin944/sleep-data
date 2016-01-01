@@ -15,18 +15,16 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "gulp build",
-    "run": "node dist/index.js"
+    "postinstall": "tsd install",
+    "pretest": "npm run tsc",
+    "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json",
+    "tsc": "tsc --project ./src",
+    "tsc:watch": "tsc --project ./src --watch"
   },
   "devDependencies": {
-    "del": "^2.2.0",
-    "gulp": "*",
-    "gulp-clean": "*",
-    "gulp-plumber": "^1.0.1",
-    "gulp-tsc": "*",
-    "gulp-watch": "^4.3.5",
-    "merge2": "^0.3.6",
-    "tsd": "^0.6.5"
+    "jasmine": "^2.4.1",
+    "tsd": "^0.6.5",
+    "typescript": "^1.7.5"
   },
   "dependencies": {
     "jbinary": "^2.1.3",
