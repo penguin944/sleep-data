@@ -15,10 +15,14 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "gulp build",
-    "run": "node dist/index.js"
+    "postinstall": "tsd install",
+    "pretest": "npm run tsc",
+    "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json",
+    "tsc": "tsc --project ./src",
+    "tsc:watch": "tsc --project ./src --watch"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "del": "^2.2.0",
     "es6-module-loader": "^0.17.9",
     "gulp": "*",
@@ -32,6 +36,11 @@
     "karma-systemjs": "^0.10.0",
     "merge2": "^0.3.6",
     "systemjs": "^0.19.9"
+=======
+    "jasmine": "^2.4.1",
+    "tsd": "^0.6.5",
+    "typescript": "^1.7.5"
+>>>>>>> cf7009a5321c3c6d8e86bdf1bbdfc00eded9de34
   },
   "dependencies": {
     "jbinary": "^2.1.3",

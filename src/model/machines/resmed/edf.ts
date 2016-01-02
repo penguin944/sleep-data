@@ -1,15 +1,13 @@
 'use strict';
 /// <reference path="../../../typings/tsd.d.ts" />
 
-import { jBinary } from 'jBinary';
-
-export class EDFData{
+export class EDFData {
 	header: EDFHeader;
 	signal: EDFSignal;
 	annotations: EDFAnnotation[];
 }
 
-export class EDFHeader{
+export class EDFHeader {
 	idCode: string;
 	subjectID: string;
 	recordingID: string;
@@ -29,40 +27,40 @@ export class EDFHeader{
 	digitalMax: number[];
 	prefilterings: string[];
 	numberOfSamples: number[];
-	reserved: Buffer;
+	reserved: ArrayBuffer;
 }
 
-export class EDFSignal{
+export class EDFSignal {
 	unitsInDigit: number[];
 	digitalValues: number[][];
 	valuesInUnits: number[][];
 }
 
-export class EDFAnnotation{
+export class EDFAnnotation {
 	onSet: number = 0.0;
 	duration: number = 0.0;
 	annotations: string[];
 
-	constructor(onSet: string, duration: string, annotations: string[]){
+	constructor(onSet: string, duration: string, annotations: string[]) {
 		this.onSet = parseFloat(onSet);
 
-		if(!!duration){
+		if (!!duration) {
 			this.duration = parseFloat(duration);
 		}
 
-		for(let i = 0; i < annotations.length; i++){
-			if(!!annotations[i]) {
+		for (let i = 0; i < annotations.length; i++) {
+			if (!!annotations[i]) {
 				this.annotations.push(annotations[i]);
 			}
 		}
 	}
 
-	public toString = () => {
-		return "Annotation [onSet=" + this.onSet + ", duration=" + this.duration + ", annotations=" + this.annotations + "]";
+	public toString(): string {
+		return 'Annotation [onSet=' + this.onSet + ', duration=' + this.duration + ', annotations=' + this.annotations + ']';
 	}
 }
 
-export class EDFConstants{
+export class EDFConstants {
 	public static IDENTIFICATION_CODE_SIZE = 8;
 	public static LOCAL_SUBJECT_IDENTIFICATION_SIZE = 80;
 	public static LOCAL_RECORDING_IDENTIFICATION_SIZE = 80;
@@ -87,9 +85,11 @@ export class EDFConstants{
 
 	/** The size of the EDF-Header-Record containing information about the recording */
 	public static HEADER_SIZE_RECORDING_INFO
-		= EDFConstants.IDENTIFICATION_CODE_SIZE + EDFConstants.LOCAL_SUBJECT_IDENTIFICATION_SIZE + EDFConstants.LOCAL_RECORDING_IDENTIFICATION_SIZE
-			+ EDFConstants.START_DATE_SIZE + EDFConstants.START_TIME_SIZE + EDFConstants.HEADER_SIZE + EDFConstants.DATA_FORMAT_VERSION_SIZE
-			+ EDFConstants.DURATION_DATA_RECORDS_SIZE + EDFConstants.NUMBER_OF_DATA_RECORDS_SIZE + EDFConstants.NUMBER_OF_CHANNELS_SIZE;
+		= EDFConstants.IDENTIFICATION_CODE_SIZE + EDFConstants.LOCAL_SUBJECT_IDENTIFICATION_SIZE
+			+ EDFConstants.LOCAL_RECORDING_IDENTIFICATION_SIZE + EDFConstants.START_DATE_SIZE
+			+ EDFConstants.START_TIME_SIZE + EDFConstants.HEADER_SIZE + EDFConstants.DATA_FORMAT_VERSION_SIZE
+			+ EDFConstants.DURATION_DATA_RECORDS_SIZE + EDFConstants.NUMBER_OF_DATA_RECORDS_SIZE
+			+ EDFConstants.NUMBER_OF_CHANNELS_SIZE;
 
 	/** The size per channel of the EDF-Header-Record containing information a channel of the recording */
 	public static HEADER_SIZE_PER_CHANNEL
