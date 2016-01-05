@@ -4,6 +4,7 @@
 import { EDFData, EDFHeader, EDFSignal } from './edf';
 import { Session } from '../../session';
 
+import { Observable } from 'rxjs';
 import * as fs from 'fs';
 
 export class Parser {
@@ -11,14 +12,12 @@ export class Parser {
 
 	constructor(private fileName: string) { }
 
-	public parse(): void {
-		fs.readFile(this.fileName, (error: NodeJS.ErrnoException, data: Buffer): any => {
-			if (error) {
-				console.log(error.message);
+	public parse(): Observable<Promise> {
+		let file = fs.createReadStream(this.fileName).on('error', console.log.bind(console, 'fs err'));
 
-				return;
-			}
+		let o = Observable.of(file);
 
+		return o.map((data: Buffer): any => {
 			let session = new Session(0);
 
 			let header = this.parseHeader(data);
