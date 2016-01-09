@@ -3,6 +3,7 @@
 
 import { EDFData, EDFHeader, EDFSignal } from './edf';
 import { Session } from '../../session';
+import RxFs from '../../../rx/rxify-fs';
 
 import { Observable } from 'rxjs';
 import * as fs from 'fs';
@@ -12,23 +13,21 @@ export class Parser {
 
 	constructor(private fileName: string) { }
 
-	public parse(): Observable<Promise> {
-		let file = fs.createReadStream(this.fileName).on('error', console.log.bind(console, 'fs err'));
+	public parse(): Observable<EDFData> {
+		let o: Observable<Buffer> = RxFs.createObservableReadStream(this.fileName);
 
-		let o = Observable.of(file);
 
+		let edf: EDFData = new EDFData();
 		return o.map((data: Buffer): any => {
-			let session = new Session(0);
-
-			let header = this.parseHeader(data);
+			this.parseHeader(data);
 		});
 	}
 
-	private parseHeader(fileBuffer: Buffer): EDFHeader {
+	private parseHeader(buffer: Buffer): EDFHeader {
 		let header = new EDFHeader();
 
-		header.formatVersion = fileBuffer.toString('binary', 0, 8);
-		header.startDate = fileBuffer.toString('binary', 168, 16);
+		header.formatVersion = buffer.toString('binary', 0, 8);
+		header.startDate = buffer.toString('binary', 168, 16);
 
 		return header;
 	}
