@@ -22,7 +22,9 @@ export class Parser {
 				result.error(error);
 			}
 
-			result.next(jb.read("baseType"));
+			let edfdata: any = jb.read("baseType");
+
+			result.next(edfdata);
 		});
 
 		return result;
