@@ -8,6 +8,6 @@ import { Session } from './model/session';
 import Parser from './model/machines/resmed/parser';
 
 let parser: Parser = new Parser('./data/resmed/airsense10/STR.edf');
-let header = parser.parseHeader();
+let header = parser.parse();
 
 console.log(JSON.stringify(header));
