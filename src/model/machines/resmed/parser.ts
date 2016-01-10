@@ -5,25 +5,27 @@ import { EDFData, EDFHeader, EDFSignal } from './edf';
 import typeSet from './template';
 
 var jBinary = require('jbinary');
+var moment = require('moment');
 
 import { Observable, Subject } from 'rxjs';
 import * as fs from 'fs';
 
 export class Parser {
-	private fileBuffer: Buffer;
-
 	constructor(private fileName: string) { }
 
 	public parse(): Observable<EDFData> {
 		let stream: NodeJS.ReadableStream = fs.createReadStream(this.fileName);
 
-		return Observable.fromPromise(
-			jBinary.load(stream, typeSet, (error: string, data: EDFData) => {
-				console.log(JSON.stringify(data));
+		let result: Subject<EDFData> = new Subject<EDFData>();
+		jBinary.load(stream, typeSet, (error: string, jb: any) => {
+			if(error){
+				result.error(error);
+			}
 
-				return data;
-			})
-		);
+			result.next(jb.read("baseType"));
+		});
+
+		return result;
 	}
 }
 
