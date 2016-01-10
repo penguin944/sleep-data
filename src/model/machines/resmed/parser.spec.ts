@@ -1,6 +1,8 @@
 'use strict';
 /// <reference path="../../typings/tsd.d.ts"/>
 
+var jBinary = require('jbinary');
+
 import { Parser } from './parser';
 import { EDFHeader, EDFData } from './edf';
 
