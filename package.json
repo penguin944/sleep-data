@@ -18,8 +18,8 @@
     "postinstall": "tsd install",
     "pretest": "npm run tsc",
     "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json",
-    "tsc": "tsc --project ./src",
-    "tsc:watch": "tsc --project ./src --watch"
+    "tsc": "tsc",
+    "tsc:watch": "tsc --watch"
   },
   "devDependencies": {
     "del": "^2.2.0",

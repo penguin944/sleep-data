@@ -18,21 +18,3 @@ export default class RxJsNode {
         };
     }
 }
-
-export class RxEventEmitter implements NodeJS.EventEmitter {
-    public toObservable<T>(eventName: string) {
-        let parent = this;
-
-        return Observable.create(function(subscriber: Subscriber<T>) {
-            let handler = function(o: T) {
-                subscriber.next(o);
-        	};
-
-			parent.addListener(eventName, handler);
-
-	        return function() {
-	            parent.removeListener(eventNae, handler);
-	        };
-    	});
-	}
-}

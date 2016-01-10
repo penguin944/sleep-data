@@ -9,9 +9,12 @@
 			"commit": "1da639a106527e0c4010b354a1efe52a3059a291"
 		},
 		"jasmine/jasmine.d.ts": {
-			"commit": "dc9dabe74a5be62613b17a3605309783a12ff28a"
+			"commit": "6eebd5e90a1cbd6b47b0705ba72dbcd5baf846f3"
 		},
 		"jbinary/jbinary.d.ts": {
+			"commit": "6eebd5e90a1cbd6b47b0705ba72dbcd5baf846f3"
+		},
+		"moment/moment.d.ts": {
 			"commit": "6eebd5e90a1cbd6b47b0705ba72dbcd5baf846f3"
 		},
 		"jdataview/jdataview.d.ts": {

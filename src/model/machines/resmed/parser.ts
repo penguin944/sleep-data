@@ -4,6 +4,9 @@
 import { EDFData, EDFHeader, EDFSignal } from './edf';
 import typeSet from './template';
 
+import 'jbinary';
+import 'moment-node';
+
 import { Observable, Subject } from 'rxjs';
 import * as fs from 'fs';
 
