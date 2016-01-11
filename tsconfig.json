@@ -11,7 +11,6 @@
 	},
 	"filesGlob": [
 		"src/**/*.ts",
-		"!src/**/*.spec.ts"
 	],
 	"files": [
 		"src/index.ts",
@@ -23,6 +22,9 @@
 		"src/model/session.ts",
 		"src/rx/rxify-fs.ts",
 		"src/rx/rxify.ts",
+		"src/typings/jasmine/jasmine.d.ts",
+		"src/typings/jbinary/jbinary.d.ts",
+		"src/typings/jdataview/jdataview.d.ts",
 		"src/typings/lodash/lodash.d.ts",
 		"src/typings/moment/moment-node.d.ts",
 		"src/typings/moment/moment.d.ts",
