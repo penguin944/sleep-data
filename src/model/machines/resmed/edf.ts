@@ -21,13 +21,13 @@ export class EDFHeader {
 	channelLabels: string[];
 	transducerTypes: string[];
 	dimensions: string[];
-	minInUnits: string[];
-	maxInUnits: string[];
+	physicalMin: string[];
+	physicalMax: string[];
 	digitalMin: number[];
 	digitalMax: number[];
 	prefilterings: string[];
 	numberOfSamples: number[];
-	reserved: ArrayBuffer;
+	gain: number; // (physicalMax - physicalMin) / (digitalMax - digitalMin)
 }
 
 export class EDFSignal {
