@@ -10,9 +10,11 @@ import { Session } from './model/session';
 
 import Parser from './model/machines/resmed/parser';
 
-let parser: Parser = new Parser('src/model/machines/resmed/STR.edf');
-parser.parse().subscribe((data: EDFData) => {
+let parser: Parser = new Parser('data/resmed/airsense10/DATALOG/20151225/20151225_212227_PLD.edf');
+parser.parse().subscribe((data: any) => {
 	console.log(util.inspect(data));
+
+	console.log(data.dataRecords[0][0][0]);
 
 }, (error: any) => {
 	console.error(error);

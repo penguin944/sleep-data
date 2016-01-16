@@ -5,7 +5,7 @@ import { ChannelType, Channel } from './channel';
 export class Session {
 	channels: Map<ChannelType, Channel>;
 
-	constructor(public id: SessionId){
+	constructor(public id: SessionId) {
 
 	}
 }

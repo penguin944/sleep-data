@@ -1,34 +1,32 @@
 {
 	"compilerOptions": {
 		"module": "commonjs",
-		"target": "es6",
+		"target": "es5",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"noImplicitAny": true,
-		"removeComments": false,
+		"removeComments": true,
 		"preserveConstEnums": true,
 		"sourceMap": true
 	},
 	"filesGlob": [
-		"src/**/*.ts",
+		"src/**/*.ts"
 	],
 	"files": [
 		"src/index.ts",
 		"src/model/channel.ts",
 		"src/model/machine.ts",
 		"src/model/machines/resmed/edf.ts",
+		"src/model/machines/resmed/parser.spec.ts",
 		"src/model/machines/resmed/parser.ts",
 		"src/model/machines/resmed/template.ts",
 		"src/model/session.ts",
-		"src/rx/rxify-fs.ts",
-		"src/rx/rxify.ts",
 		"src/typings/jasmine/jasmine.d.ts",
 		"src/typings/jbinary/jbinary.d.ts",
 		"src/typings/jdataview/jdataview.d.ts",
-		"src/typings/lodash/lodash.d.ts",
-		"src/typings/moment/moment-node.d.ts",
-		"src/typings/moment/moment.d.ts",
 		"src/typings/node/node.d.ts",
+		"src/typings/rx/rx-lite.d.ts",
+		"src/typings/rx/rx.d.ts",
 		"src/typings/tsd.d.ts"
 	],
 	"atom": {

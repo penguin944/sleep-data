@@ -1,13 +1,14 @@
-'use strict';
 /// <reference path="../../../typings/tsd.d.ts" />
 
-var jBinary = require('../../../lib/jbinary/jbinary');
+var jBinary = require('../../../../lib/jbinary/jbinary');
+
+import { EDFConstants } from './edf';
 
 export default {
 	'jBinary.littleEndian': true,
-	'jBinary.all': 'baseType',
+	'jBinary.all': 'edfdata',
 
-	edfheader: {
+	edfdata: {
 		version: [ 'trimstring', 8 ],
 		patientId: [ 'trimstring', 80 ],
 		recordingId: [ 'trimstring', 80 ],
@@ -26,23 +27,33 @@ export default {
 		digitalMinimum: [ 'array', [ 'integerstring', 8 ], 'signalCount' ],
 		digitalMaximum: [ 'array', [ 'integerstring', 8 ], 'signalCount' ],
 		prefiltering: [ 'array', [ 'trimstring', 80 ], 'signalCount' ],
-		dataRecordSampleCount: [ 'array', [ 'integerstring', 8 ], 'signalCount' ],
-		reserved1: [ 'skip', function (context: any) {
-		    return context.signalCount * 32; // total size except `size` field itself
+		signalSampleCounts: [ 'array', [ 'integerstring', 8 ], 'signalCount' ],
+		reserved1: [ 'skip', (context: any): number => {
+			return context.signalCount * 32;
 		}],
+		dataRecords: [ 'array', [ 'edfdatarecord', 'signalCount' ], 'dataRecordCount']
 	},
 
-	edfdata: {
-		// nr of samples[1] * integer : first signal in the data record
-		// nr of samples[2] * integer : second signal
-	},
+	edfdatarecord: jBinary.Type({
+		params: ['signalCount'],
 
+		read: function(context: any): any {
+			let signalCount = context.signalCount;
+			let signalSampleCounts = context.signalSampleCounts;
 
+			let signal: any;
+			let signals: any[] = new Array();
+			for (let i = 0; i < signalCount; i++) {
+				signal = this.binary.read([ 'array', 'int16', signalSampleCounts[i] ]);
 
-	baseType: {
-		header: 'edfheader',
-		data: 'edfdata'
-	},
+				signals[i] = signal;
+			}
+
+			return signals;
+		},
+
+		write: function(): void { ; }
+	}),
 
 	trimstring: jBinary.Type({
 		params: ['length'],

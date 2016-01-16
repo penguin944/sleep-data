@@ -2,38 +2,38 @@
 /// <reference path="../../../typings/tsd.d.ts" />
 
 export class EDFData {
-	header: EDFHeader;
-	signal: EDFSignal;
-	annotations: EDFAnnotation[];
+	public header: EDFHeader;
+	public signal: EDFSignal;
+	public annotations: EDFAnnotation[];
 }
 
 export class EDFHeader {
-	idCode: string;
-	subjectID: string;
-	recordingID: string;
-	startDate: string;
-	startTime: string;
-	bytesInHeader: number = 0;
-	formatVersion: string;
-	numberOfRecords: number = 0;
-	durationOfRecords: number = 0.0;
-	numberOfChannels: number = 0;
-	channelLabels: string[];
-	transducerTypes: string[];
-	dimensions: string[];
-	physicalMin: string[];
-	physicalMax: string[];
-	digitalMin: number[];
-	digitalMax: number[];
-	prefilterings: string[];
-	numberOfSamples: number[];
-	gain: number; // (physicalMax - physicalMin) / (digitalMax - digitalMin)
+	public idCode: string;
+	public subjectID: string;
+	public recordingID: string;
+	public startDate: string;
+	public startTime: string;
+	public bytesInHeader: number = 0;
+	public formatVersion: string;
+	public numberOfRecords: number = 0;
+	public durationOfRecords: number = 0.0;
+	public numberOfChannels: number = 0;
+	public channelLabels: string[];
+	public transducerTypes: string[];
+	public dimensions: string[];
+	public physicalMin: string[];
+	public physicalMax: string[];
+	public digitalMin: number[];
+	public digitalMax: number[];
+	public prefilterings: string[];
+	public numberOfSamples: number[];
+	public gain: number; // (physicalMax - physicalMin) / (digitalMax - digitalMin)
 }
 
 export class EDFSignal {
-	unitsInDigit: number[];
-	digitalValues: number[][];
-	valuesInUnits: number[][];
+	public unitsInDigit: number[];
+	public digitalValues: number[][];
+	public valuesInUnits: number[][];
 }
 
 export class EDFAnnotation {
@@ -61,39 +61,26 @@ export class EDFAnnotation {
 }
 
 export class EDFConstants {
-	public static IDENTIFICATION_CODE_SIZE = 8;
-	public static LOCAL_SUBJECT_IDENTIFICATION_SIZE = 80;
-	public static LOCAL_RECORDING_IDENTIFICATION_SIZE = 80;
-	public static START_DATE_SIZE = 8;
-	public static START_TIME_SIZE = 8;
-	public static HEADER_SIZE = 8;
-	public static DATA_FORMAT_VERSION_SIZE = 44;
-	public static DURATION_DATA_RECORDS_SIZE = 8;
-	public static NUMBER_OF_DATA_RECORDS_SIZE = 8;
-	public static NUMBER_OF_CHANNELS_SIZE = 4;
+	public static VERSION_LENGTH = 8;
+	public static IDENTIFICATION_CODE_LENGTH = 8;
+	public static PATIENT_IDENTIFICATION_LENGTH = 80;
+	public static RECORDING_IDENTIFICATION_LENGTH = 80;
+	public static START_DATE_LENGTH = 8;
+	public static START_TIME_LENGTH = 8;
+	public static HEADER_LENGTH = 8;
+	public static RECORD_FORMAT_LENGTH = 44;
+	public static DATA_RECORD_DURATION_LENGTH = 8;
+	public static DATA_RECORD_COUNT_LENGTH = 8;
+	public static SIGNAL_COUNT_LENGTH = 4;
 
-	public static LABEL_OF_CHANNEL_SIZE = 16;
-	public static TRANSDUCER_TYPE_SIZE = 80;
-	public static PHYSICAL_DIMENSION_OF_CHANNEL_SIZE = 8;
-	public static PHYSICAL_MIN_IN_UNITS_SIZE = 8;
-	public static PHYSICAL_MAX_IN_UNITS_SIZE = 8;
-	public static DIGITAL_MIN_SIZE = 8;
-	public static DIGITAL_MAX_SIZE = 8;
-	public static PREFILTERING_SIZE = 80;
-	public static NUMBER_OF_SAMPLES_SIZE = 8;
-	public static RESERVED_SIZE = 32;
-
-	/** The size of the EDF-Header-Record containing information about the recording */
-	public static HEADER_SIZE_RECORDING_INFO
-		= EDFConstants.IDENTIFICATION_CODE_SIZE + EDFConstants.LOCAL_SUBJECT_IDENTIFICATION_SIZE
-			+ EDFConstants.LOCAL_RECORDING_IDENTIFICATION_SIZE + EDFConstants.START_DATE_SIZE
-			+ EDFConstants.START_TIME_SIZE + EDFConstants.HEADER_SIZE + EDFConstants.DATA_FORMAT_VERSION_SIZE
-			+ EDFConstants.DURATION_DATA_RECORDS_SIZE + EDFConstants.NUMBER_OF_DATA_RECORDS_SIZE
-			+ EDFConstants.NUMBER_OF_CHANNELS_SIZE;
-
-	/** The size per channel of the EDF-Header-Record containing information a channel of the recording */
-	public static HEADER_SIZE_PER_CHANNEL
-		= EDFConstants.LABEL_OF_CHANNEL_SIZE + EDFConstants.TRANSDUCER_TYPE_SIZE + EDFConstants.PHYSICAL_DIMENSION_OF_CHANNEL_SIZE
-			+ EDFConstants.PHYSICAL_MIN_IN_UNITS_SIZE + EDFConstants.PHYSICAL_MAX_IN_UNITS_SIZE + EDFConstants.DIGITAL_MIN_SIZE
-			+ EDFConstants.DIGITAL_MAX_SIZE	+ EDFConstants.PREFILTERING_SIZE + EDFConstants.NUMBER_OF_SAMPLES_SIZE + EDFConstants.RESERVED_SIZE;
+	public static SIGNAL_LABEL_LENGTH = 16;
+	public static TRANSDUCER_TYPE_LENGTH = 80;
+	public static SIGNAL_UNITS_LENGTH = 8;
+	public static PHYSICAL_MIN_IN_UNITS_LENGTH = 8;
+	public static PHYSICAL_MAX_IN_UNITS_LENGTH = 8;
+	public static DIGITAL_MIN_LENGTH = 8;
+	public static DIGITAL_MAX_LENGTH = 8;
+	public static PREFILTERING_LENGTH = 80;
+	public static DATA_RECORD_SAMPLE_COUNT_LENGTH = 8;
+	public static RESERVED_LENGTH = 32;
 }
