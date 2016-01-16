@@ -31,7 +31,7 @@ export default {
 		reserved1: [ 'skip', (context: any): number => {
 			return context.signalCount * 32;
 		}],
-		dataRecords: [ 'array', [ 'edfdatarecord', 'signalCount' ], 'dataRecordCount']
+		dataRecords: [ 'array', 'edfdatarecord', 'dataRecordCount']
 	},
 
 	edfdatarecord: jBinary.Type({
@@ -41,12 +41,9 @@ export default {
 			let signalCount = context.signalCount;
 			let signalSampleCounts = context.signalSampleCounts;
 
-			let signal: any;
-			let signals: any[] = new Array();
+			let signals: number[][] = [];
 			for (let i = 0; i < signalCount; i++) {
-				signal = this.binary.read([ 'array', 'int16', signalSampleCounts[i] ]);
-
-				signals[i] = signal;
+				signals[i] = this.binary.read([ 'array', 'int16', signalSampleCounts[i] ]);
 			}
 
 			return signals;
