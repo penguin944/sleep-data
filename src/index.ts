@@ -11,8 +11,8 @@ import { Session } from './model/session';
 import Parser from './model/machines/resmed/parser';
 
 let parser: Parser = new Parser('data/resmed/airsense10/DATALOG/20151225/20151225_212227_PLD.edf');
-parser.parse().subscribe((data: any) => {
-	console.log(data.dataRecords);
+parser.parse().subscribe((data: EDFData) => {
+	console.log(data);
 
 }, (error: any) => {
 	console.error(error);

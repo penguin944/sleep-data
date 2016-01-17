@@ -1,5 +1,5 @@
 'use strict';
-/// <reference path="../../typings/tsd.d.ts"/>
+/// <reference path="../../../typings/tsd.d.ts" />
 
 var jBinary = require('../../../../lib/jbinary/jbinary');
 
@@ -8,7 +8,7 @@ import { EDFHeader, EDFData } from './edf';
 
 describe('ResMed machine data parsing', () => {
 	it('should parse the edf header from the STR file', (done: Function) => {
-		let parser: Parser = new Parser('STR.edf');
+		let parser: Parser = new Parser('../../../../data/resmed/airsense10/STR.edf');
 		parser.parse().subscribe((data: EDFData) => {
 			expect(data).toBeDefined();
 			expect(data.header).toBeDefined();
@@ -16,6 +16,5 @@ describe('ResMed machine data parsing', () => {
 			done();
 		});
 
-		expect(true).toBeTruthy();
-	});
+	}, 100000);
 });

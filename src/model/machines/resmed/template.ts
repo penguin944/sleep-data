@@ -2,8 +2,6 @@
 
 var jBinary = require('../../../../lib/jbinary/jbinary');
 
-import { EDFConstants } from './edf';
-
 export default {
 	'jBinary.littleEndian': true,
 	'jBinary.all': 'edfdata',
@@ -12,13 +10,13 @@ export default {
 		version: [ 'trimstring', 8 ],
 		patientId: [ 'trimstring', 80 ],
 		recordingId: [ 'trimstring', 80 ],
-		startDate: [ 'string', 8 ],
-		startTime: [ 'string', 8 ],
+		startDateTime: [ 'string', 16 ],
 		headerLength: [ 'integerstring', 8 ],
 		recordFormat: [ 'trimstring', 44 ],
 		dataRecordCount: [ 'integerstring', 8 ],
 		dataRecordDuration: [ 'decimalstring', 8 ],
 		signalCount: [ 'integerstring', 4 ],
+
 		signalLabels: [ 'array', [ 'trimstring', 16 ], 'signalCount' ],
 		transducerTypes: [ 'array', [ 'trimstring', 80 ], 'signalCount' ],
 		signalUnits: [ 'array', [ 'trimstring', 8 ], 'signalCount' ],

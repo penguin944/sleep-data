@@ -18,16 +18,16 @@
     "postinstall": "tsd install",
     "pretest": "npm run tsc",
     "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json",
-    "tsc": "tsc",
-    "tsc:watch": "tsc --watch"
+    "tsc": "tsc -p ./src",
+    "tsc:watch": "tsc -p ./src --watch"
   },
   "devDependencies": {
     "del": "^2.2.0",
     "es6-module-loader": "^0.17.9",
-    "systemjs": "^0.19.9",
     "jasmine": "^2.4.1",
+    "systemjs": "^0.19.9",
     "tsd": "^0.6.5",
-    "typescript": "^1.7.5"
+    "typescript": "^1.8.0-dev.20160116"
   },
   "dependencies": {
     "jbinary": "^2.1.3",
