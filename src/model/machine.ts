@@ -32,6 +32,7 @@ export enum MachineBrand {
 }
 
 export interface MachineLoader {
-	machines: Array<Machine>;
-
+	load: (path: string) => Map<SessionId, Session>;
 }
+
+

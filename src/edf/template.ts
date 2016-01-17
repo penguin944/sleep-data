@@ -1,6 +1,6 @@
-/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path="../typings/tsd.d.ts" />
 
-var jBinary = require('../../../../lib/jbinary/jbinary');
+var jBinary = require('../../lib/jbinary/jbinary');
 
 export default {
 	'jBinary.littleEndian': true,

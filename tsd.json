@@ -22,6 +22,15 @@
 		},
 		"moment/moment-node.d.ts": {
 			"commit": "70bf7e2bfeb0d5b1b651ef3219bcc65c8eec117e"
+		},
+		"node-uuid/node-uuid.d.ts": {
+			"commit": "70bf7e2bfeb0d5b1b651ef3219bcc65c8eec117e"
+		},
+		"node-uuid/node-uuid-base.d.ts": {
+			"commit": "70bf7e2bfeb0d5b1b651ef3219bcc65c8eec117e"
+		},
+		"node-uuid/node-uuid-cjs.d.ts": {
+			"commit": "70bf7e2bfeb0d5b1b651ef3219bcc65c8eec117e"
 		}
 	}
 }

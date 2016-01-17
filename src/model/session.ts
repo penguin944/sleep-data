@@ -1,20 +1,33 @@
 'use strict';
 
-import { ChannelType, Channel } from './channel';
+import * as uuid from 'node-uuid';
+
+import { MachineId } from './machine';
+import { SignalId, Signal } from './signal';
+import { Annotation } from './annotation';
 
 export class Session {
-	channels: Map<ChannelType, Channel>;
+	sessionId: SessionId;
+	machineId: MachineId;
+	signals: Map<SignalId, Signal>;
+	annotations: Annotation[];
 
 	constructor(public id: SessionId) {
 
 	}
 }
 
-export type SessionId = number;
+class SessionIdFactory {
+	public static create(): SessionId {
+		return
+	}
+}
+
+export type SessionId = string;
 
 export interface SessionSlice {
-	start: number;
-	end: number;
+	start: moment.Moment;
+	end: moment.Moment;
 	status: SliceStatus;
 }
 

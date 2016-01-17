@@ -3,12 +3,11 @@
 
 import * as util from 'util';
 
-import { EDFData, EDFHeader, EDFSignal } from './model/machines/resmed/edf';
 import { Machine } from './model/machine';
-import { Channel, ChannelType } from './model/channel';
+import { SignalId, Signal } from './model/signal';
 import { Session } from './model/session';
 
-import Parser from './model/machines/resmed/parser';
+import { Parser, EDFData, EDFHeader, EDFSignal } from './edf/parser';
 
 let parser: Parser = new Parser('data/resmed/airsense10/DATALOG/20151225/20151225_212227_PLD.edf');
 parser.parse().subscribe((data: EDFData) => {

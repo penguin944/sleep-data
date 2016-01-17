@@ -1,5 +1,5 @@
 'use strict';
-/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path="../typings/tsd.d.ts" />
 
 var moment = require('moment');
 
@@ -31,7 +31,7 @@ export class EDFSignal {
 
 	public samplesPerPeriod: number;
 	public digitalSamples: number[] = [];
-	public samplesInUnits: number[] = [];
+	public scaledSamples: number[] = [];
 }
 
 export class EDFAnnotation {
