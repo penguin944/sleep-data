@@ -13,9 +13,15 @@ import * as fs from 'fs';
 export class Parser {
 	constructor(private fileName: string) { }
 
-	public parse(): Observable<EDFData> {
+	public static parse(fileName: string): Observable<EDFData>{
+		return new Parser(fileName).parse();
+	}
+
+	private parse(): Observable<EDFData> {
 		return this.parseEDFData().map((rawedf: any): EDFData => {
 			let data: EDFData = new EDFData();
+
+			data.fileName = this.fileName;
 
 			data.header.version = rawedf.version;
 			data.header.patientId = rawedf.patientId;

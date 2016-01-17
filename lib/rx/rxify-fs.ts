@@ -255,6 +255,28 @@ export default class RxFs {
         return subject;
     }
 
+	public static readdirFiles(path: string): Observable<string> {
+		let subject = new Subject<string>();
+
+		let handler = function(err: NodeJS.ErrnoException, files: string[]) {
+			if (err) {
+				subject.error(err);
+
+			} else {
+				files.forEach( (file: string) => {
+					subject.next(files);
+				});
+
+				subject.complete();
+			}
+		};
+
+		fs.readdir(path, handler);
+
+		return subject;
+
+	}
+
     public static readdir(path: string): Observable<string[]> {
         let subject = new Subject<string[]>();
 

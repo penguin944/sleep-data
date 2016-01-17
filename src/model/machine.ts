@@ -1,8 +1,9 @@
 'use strict';
 
+import { Observable } from 'rxjs';
 import { SessionId, Session } from './session';
 
-export class Machine {
+export abstract class Machine {
 	type: MachineType;
 	brand: MachineBrand;
 	loaderName: string;
@@ -32,7 +33,5 @@ export enum MachineBrand {
 }
 
 export interface MachineLoader {
-	load: (path: string) => Map<SessionId, Session>;
+	load: (dirpath: string) => Observable<Session>;
 }
-
-

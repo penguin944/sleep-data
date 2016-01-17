@@ -4,6 +4,7 @@
 var moment = require('moment');
 
 export class EDFData {
+	public fileName: string;
 	public header: EDFHeader = new EDFHeader();
 	public signals: EDFSignal[] = [];
 	public annotations: EDFAnnotation[] = [];
