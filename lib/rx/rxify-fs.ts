@@ -263,8 +263,8 @@ export default class RxFs {
 				subject.error(err);
 
 			} else {
-				files.forEach( (file: string) => {
-					subject.next(files);
+				files.forEach((file: string) => {
+					subject.next(file);
 				});
 
 				subject.complete();
