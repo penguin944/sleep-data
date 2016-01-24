@@ -1,3 +1,4 @@
+import {DataGroup} from '../model/resmed/model';
 'use strict';
 /// <reference path="../typings/tsd.d.ts" />
 

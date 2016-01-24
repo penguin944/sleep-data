@@ -22,6 +22,10 @@ export abstract class Machine {
 	}
 }
 
+export class CpapMachine extends Machine {
+
+}
+
 export type MachineId = number;
 
 export enum MachineType {
@@ -33,5 +37,5 @@ export enum MachineBrand {
 }
 
 export interface MachineLoader {
-	load: (dirpath: string) => Observable<Session>;
+	load: (files: string[]) => Observable<Session>;
 }

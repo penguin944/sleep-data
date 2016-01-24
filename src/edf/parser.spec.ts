@@ -12,8 +12,7 @@ describe('ResMed machine data parsing', () => {
 	it('should parse the edf header from the STR file', (done: Function) => {
 		let filename = 'data/resmed/airsense10/STR.edf';
 
-		let parser: Parser = new Parser(filename);
-		parser.parse().subscribe(
+		Parser.parse(filename).subscribe(
 			(data: EDFData) => {
 				expect(data).toBeDefined();
 				expect(data.header).toBeDefined();
@@ -25,5 +24,5 @@ describe('ResMed machine data parsing', () => {
 			}
 		);
 
-	}, 10000);
+	}, 120000);
 });

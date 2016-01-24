@@ -1,3 +1,4 @@
+import {ReplaySubject} from 'rxjs/Rx';
 'use strict';
 /// <reference path="../typings/tsd.d.ts" />
 
@@ -13,12 +14,14 @@ import * as fs from 'fs';
 export class Parser {
 	constructor(private fileName: string) { }
 
-	public static parse(fileName: string): Observable<EDFData>{
+	public static parse(fileName: string): Observable<EDFData> {
 		return new Parser(fileName).parse();
 	}
 
 	private parse(): Observable<EDFData> {
 		return this.parseEDFData().map((rawedf: any): EDFData => {
+			console.log('received rawedf: ' + JSON.stringify(rawedf));
+
 			let data: EDFData = new EDFData();
 
 			data.fileName = this.fileName;
@@ -28,6 +31,8 @@ export class Parser {
 			data.header.recordingId = rawedf.recordingId;
 			data.header.startDateTime = moment(rawedf.startDateTime, 'DD.MM.YYHH.mm.ss');
 			data.header.recordDuration = moment.duration(rawedf.dataRecordDuration, 'seconds');
+
+			console.log(data.header.startDateTime.unix());
 
 			let signal: EDFSignal;
 			for (let signalNum = 0; signalNum < rawedf.signalCount; signalNum++ ) {
@@ -63,19 +68,20 @@ export class Parser {
 	}
 
 	private parseEDFData(): Observable<any> {
-		let stream: NodeJS.ReadableStream = fs.createReadStream(this.fileName);
+		let stream: fs.ReadStream = fs.createReadStream(this.fileName);
 
-		let result: Subject<any> = new Subject<any>();
-
-		jBinary.load(stream, typeSet, (error:string, jb:jBinary) => {
-			if (error) {
-				result.error(error);
-			}
-
-			let edfdata:any = jb.readAll();
-
-			result.next(edfdata);
+		stream.on('end', () => {
+			console.log('File ' + this.fileName + ' complete');
+			stream.close();
 		});
+
+		stream.on('close', () => {
+			console.log('File ' + this.fileName + ' closed');
+		});
+
+		let load: Promise<any> = jBinary.load(stream, typeSet);
+
+		let result = Observable.fromPromise(load);
 
 		return result;
 	};

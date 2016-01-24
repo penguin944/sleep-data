@@ -7,19 +7,12 @@ import { SignalId, Signal } from './signal';
 import { Annotation } from './annotation';
 
 export class Session {
-	sessionId: SessionId;
 	machineId: MachineId;
 	signals: Map<SignalId, Signal>;
 	annotations: Annotation[];
 
 	constructor(public id: SessionId) {
 
-	}
-}
-
-class SessionIdFactory {
-	public static create(): SessionId {
-		return
 	}
 }
 
