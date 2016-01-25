@@ -8,9 +8,9 @@ import RxFs from '../../../lib/rx/rxify-fs';
 import * as fs from 'fs';
 import ResMedLoader from './loader';
 import { CpapMachine } from '../machine';
-import { Session } from '../session';
+import { SessionId, Session } from '../session';
 
-describe('ResMed machine data loading', () => {
+describe('ResMed Loader', () => {
 	it('should load and transform source data into SleepyTime model', (done: Function) => {
 		let machine: CpapMachine = new CpapMachine(1);
 
@@ -24,10 +24,20 @@ describe('ResMed machine data loading', () => {
 				return airsensedatadir + dateString + fileName;
 			});
 
-			fileNames.unshift(airsensedir + '/STR.edf');
-			loader.load(fileNames).subscribe((session: Session) => {
-				done();
-			});
+			// Add summary data file
+			fileNames.unshift(airsensedir + 'STR.edf');
+			loader.load(fileNames).subscribe(
+				(sessionMap: Map<SessionId, Session>) => {
+					console.log(JSON.stringify(sessionMap));
+
+				}, (err: Error) => {
+					console.error(err, err.stack.split('\n'));
+
+					fail(err);
+
+				}, () => {
+					done();
+				});
 		});
-	});
+	}, 30000);
 });

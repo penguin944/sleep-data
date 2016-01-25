@@ -8,7 +8,7 @@ import { Parser } from './parser';
 import { EDFHeader, EDFData } from './edf';
 
 
-describe('ResMed machine data parsing', () => {
+xdescribe('ResMed machine data parsing', () => {
 	it('should parse the edf header from the STR file', (done: Function) => {
 		let filename = 'data/resmed/airsense10/STR.edf';
 

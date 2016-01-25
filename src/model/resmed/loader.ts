@@ -17,12 +17,11 @@ export default class ResMedLoader implements MachineLoader {
 	// Load one or more sessions from the provided directory. The directory
 	// should contain all the files for a single day. If there are multiple
 	// sets of files for a single day there were multiple sessions for that day
-	public load(files: string[]): Observable<Session> {
+	public load(files: string[]): Observable<Map<SessionId, Session>> {
 		return Observable.fromArray(files)
 			.filter((fileName: string) => fileName.endsWith('.edf'))
 			.flatMap(Parser.parse)
-			.groupBy(this.calcSessionKey)
-			.map(this.convert);
+			.combineAll(this.convert);
 	}
 
 	private calcSessionKey(data: EDFData): SessionId {
@@ -59,9 +58,35 @@ export default class ResMedLoader implements MachineLoader {
 		}
 	}
 
-	private convert(group: GroupedObservable<SessionId, EDFData>): Session {
-		let session: Session;
+	private convert(group: EDFData[]): Map<SessionId, Session> {
+		let sessionMap: Map<SessionId, Session> = new Map<SessionId, Session>();
 
-		return session;
+		let summaryData: EDFData;
+		let eventData: EDFData;
+
+		group.forEach((edfData: EDFData) => {
+			let dataGroup: DataGroup = this.calcDataGroup(edfData);
+
+			switch (dataGroup) {
+				case DataGroup.STR:
+					summaryData = edfData;
+					break;
+
+				case DataGroup.EVE:
+					eventData = edfData;
+					break;
+
+				case DataGroup.BRP:
+				case DataGroup.CSL:
+				case DataGroup.PLD:
+				case DataGroup.SAD:
+
+					break;
+			}
+
+			eventData.annotations;
+		});
+
+		return sessionMap;
 	}
 }

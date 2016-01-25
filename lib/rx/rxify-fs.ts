@@ -278,6 +278,9 @@ export default class RxFs {
 	}
 
     public static readdir(path: string): Observable<string[]> {
+        return Observable.fromNodeCallback(fs.readdir);
+
+
         let subject = new Subject<string[]>();
 
 		let handler = function(err: NodeJS.ErrnoException, files: string[]) {

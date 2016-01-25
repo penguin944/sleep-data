@@ -37,5 +37,5 @@ export enum MachineBrand {
 }
 
 export interface MachineLoader {
-	load: (files: string[]) => Observable<Session>;
+	load: (files: string[]) => Observable<Map<SessionId, Session>>;
 }
