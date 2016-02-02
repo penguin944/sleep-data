@@ -1,11 +1,14 @@
-import {DataGroup} from '../model/resmed/model';
+import {SessionId} from '../model/session';
 'use strict';
 /// <reference path="../typings/tsd.d.ts" />
 
+import {DataGroup} from '../model/resmed/model';
 var moment = require('moment');
 
 export class EDFData {
 	public fileName: string;
+	public sessionId: SessionId;
+	public dataGroup: DataGroup;
 	public header: EDFHeader = new EDFHeader();
 	public signals: EDFSignal[] = [];
 	public annotations: EDFAnnotation[] = [];

@@ -69,7 +69,7 @@ export default class RxFs {
     }
 
     public static close(fd: number): Observable<void> {
-        return Observable.bindNodeCallback(rs.close)(fd);
+        return Observable.bindNodeCallback(fs.close)(fd);
     }
 
     public static open(path: string, flags: string, mode: string): Observable<number> {
@@ -79,7 +79,7 @@ export default class RxFs {
     public static write(fd: number, buffer: Buffer, offset: number, length: number, position: number):
 		Observable<{ bytesWritten: number, buffer: Buffer }> {
 
-        return Observable.bindNodecallback(rs.write)(fd, buffer, offset, length, position);
+        return Observable.bindNodeCallback(fs.write)(fd, buffer, offset, length, position);
     }
 
     public static read(fd: number, buffer: Buffer, offset: number, length: number, position: number):
@@ -89,7 +89,7 @@ export default class RxFs {
     }
 
     public static readFile(fileName: string, encoding: string): Observable<string> {
-        return Observable.bindNodeCallback(fs.readFile)(fs.readFile(fileName, encoding);
+        return Observable.bindNodeCallback(fs.readFile)(fileName, encoding);
     }
 
     public static writeFile(fileName: string, data: string, options?: { encoding?: string; mode?: number; flag?: string; }):

@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 var UUID = require('node-uuid');
 
-import RxFs from '../../../lib/rx/rxify-fs';
+import RxFs from '../../lib/rx/rxify-fs';
 import { Observable, Subject } from 'rxjs';
 import { GroupedObservable } from 'rxjs/operator/groupBy-support';
 
@@ -21,53 +21,21 @@ export default class ResMedLoader implements MachineLoader {
 		return Observable.fromArray(files)
 			.filter((fileName: string) => fileName.endsWith('.edf'))
 			.flatMap(Parser.parse)
+			.groupBy((data: EDFData) => data.sessionId )
 			.combineAll(this.convert);
 	}
 
-	private calcSessionKey(data: EDFData): SessionId {
-		let sessionId: SessionId = data.header.startDateTime.startOf('minute').valueOf().toString();
-
-		return sessionId;
-	}
-
-	private calcDataGroup(data: EDFData): DataGroup {
-		let fileName: string = data.fileName.slice(data.fileName.lastIndexOf('/'), data.fileName.lastIndexOf('.'));
-
-		let dataGroupString: string = fileName.slice(Math.min(0, fileName.lastIndexOf('_')));
-		switch (dataGroupString) {
-			case 'STR':
-				return DataGroup.STR;
-
-			case 'BRP':
-				return DataGroup.BRP;
-
-			case 'CSL':
-				return DataGroup.CSL;
-
-			case 'EVE':
-				return DataGroup.EVE;
-
-			case 'PLD':
-				return DataGroup.PLD;
-
-			case 'SAD':
-				return DataGroup.SAD;
-
-			default:
-				return null;
-		}
-	}
-
 	private convert(group: EDFData[]): Map<SessionId, Session> {
+		console.log('SessionId ' + group[0].sessionId);
+		console.log('Converting edfdata: ' + JSON.stringify(group));
+
 		let sessionMap: Map<SessionId, Session> = new Map<SessionId, Session>();
 
 		let summaryData: EDFData;
 		let eventData: EDFData;
 
 		group.forEach((edfData: EDFData) => {
-			let dataGroup: DataGroup = this.calcDataGroup(edfData);
-
-			switch (dataGroup) {
+			switch (edfData.dataGroup) {
 				case DataGroup.STR:
 					summaryData = edfData;
 					break;

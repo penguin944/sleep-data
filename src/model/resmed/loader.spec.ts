@@ -1,4 +1,4 @@
-import RxFs from '../../../lib/rx/rxify-fs';
+import RxFs from '../../lib/rx/rxify-fs';
 /**
  * Created by Mike on 1/17/2016.
  */
@@ -39,5 +39,5 @@ describe('ResMed Loader', () => {
 					done();
 				});
 		});
-	}, 30000);
+	}, 600000);
 });
