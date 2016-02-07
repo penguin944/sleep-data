@@ -10,7 +10,7 @@ export class EDFData {
 	public sessionId: SessionId;
 	public dataGroup: DataGroup;
 	public header: EDFHeader = new EDFHeader();
-	public signals: EDFSignal[] = [];
+	public signals: Map<string, EDFSignal> = new Map<string, EDFSignal>();
 	public annotations: EDFAnnotation[] = [];
 }
 

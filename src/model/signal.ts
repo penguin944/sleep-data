@@ -6,4 +6,7 @@ export type SignalId = string;
 
 export interface Signal {
 	signalId: SignalId;
+	units: string;
+	samplesPerPeriod: number;
+	samples: number[];
 }

@@ -25,8 +25,8 @@ export class Parser {
 			data.fileName = this.fileName;
 
 			let file: string = this.fileName.substring(this.fileName.lastIndexOf('/') + 1);
-			data.dataGroup = this.calcDataGroup(file.substring(file.lastIndexOf('_') + 1, file.lastIndexOf('.')));
-			data.sessionId = data.dataGroup === DataGroup.STR ? 'global' : file.substring(0, 13).replace('_', '');
+			data.dataGroup = DataGroup[file.substring(file.lastIndexOf('_') + 1, file.lastIndexOf('.'))];
+			data.sessionId = data.dataGroup === DataGroup.STR ? 'summary' : file.substring(0, 13).replace('_', '');
 
 			data.header.version = rawedf.version;
 			data.header.patientId = rawedf.patientId;
@@ -34,7 +34,6 @@ export class Parser {
 			data.header.startDateTime = moment(rawedf.startDateTime, 'DD.MM.YYHH.mm.ss');
 			data.header.recordDuration = moment.duration(rawedf.dataRecordDuration, 'seconds');
 
-/*
 			let signal:EDFSignal;
 			for (let signalNum = 0; signalNum < rawedf.signalCount; signalNum++) {
 				signal = new EDFSignal();
@@ -62,46 +61,9 @@ export class Parser {
 
 				data.signals[signalNum] = signal;
 			}
-*/
 
 			return data;
 		});
-	}
-
-	private calcDataGroup(groupString: string): DataGroup {
-		return DataGroup[groupString];
-		/*
-		let group: DataGroup;
-		switch (groupString) {
-			case 'STR':
-				group = DataGroup.STR;
-				break;
-
-			case 'BRP':
-				group = DataGroup.BRP;
-				break;
-
-			case 'CSL':
-				group = DataGroup.CSL;
-				break;
-
-			case 'EVE':
-				group = DataGroup.EVE;
-				break;
-
-			case 'PLD':
-				group = DataGroup.PLD;
-				break;
-
-			case 'SAD':
-				group = DataGroup.SAD;
-				break;
-
-			default:
-				group = null;
-		}
-
-		return group;*/
 	}
 
 	private calculateGain(rawedf: any, signalNum: number) {
@@ -120,7 +82,6 @@ export class Parser {
 		let stream: fs.ReadStream = fs.createReadStream(this.fileName);
 
 		stream.on('end', () => {
-			console.log('File ' + this.fileName + ' end');
 			stream.close();
 		});
 
@@ -136,7 +97,6 @@ export class Parser {
 			})
 		);
 	};
-
 }
 
 export { EDFData, EDFHeader, EDFSignal };

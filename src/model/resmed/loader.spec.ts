@@ -25,7 +25,7 @@ describe('ResMed Loader', () => {
 			});
 
 			// Add summary data file
-			fileNames.unshift(airsensedir + 'STR.edf');
+			fileNames.push(airsensedir + 'STR.edf');
 			loader.load(fileNames).subscribe(
 				(sessionMap: Map<SessionId, Session>) => {
 					console.log(JSON.stringify(sessionMap));

@@ -5,11 +5,11 @@ import RxFs from '../../lib/rx/rxify-fs';
 import { Observable, Subject } from 'rxjs';
 import { GroupedObservable } from 'rxjs/operator/groupBy-support';
 
-import { EDFData } from '../../edf/edf';
+import { EDFData, EDFSignal } from '../../edf/edf';
 import { Parser } from '../../edf/parser';
 import { MachineLoader, CpapMachine } from '../machine';
 import { SessionId, Session } from '../session';
-import { DataGroup } from './model';
+import { DataGroup, SignalType, BRPSignalType, PLDSignalType } from './model';
 
 export default class ResMedLoader implements MachineLoader {
 	constructor(public machine: CpapMachine) {	}
@@ -21,39 +21,53 @@ export default class ResMedLoader implements MachineLoader {
 		return Observable.fromArray(files)
 			.filter((fileName: string) => fileName.endsWith('.edf'))
 			.flatMap(Parser.parse)
-			.groupBy((data: EDFData) => data.sessionId )
-			.combineAll(this.convert);
+			.reduce(this.convert, new Map<SessionId, Session>());
 	}
 
-	private convert(group: EDFData[]): Map<SessionId, Session> {
-		console.log('SessionId ' + group[0].sessionId);
-		console.log('Converting edfdata: ' + JSON.stringify(group));
+	private convert(sessionMap: Map<SessionId, Session>, edf: EDFData): Map<SessionId, Session> {
+		let session: Session;
+		if (sessionMap.has(edf.sessionId)) {
+			session = sessionMap.get(edf.sessionId);
 
-		let sessionMap: Map<SessionId, Session> = new Map<SessionId, Session>();
+		} else {
+			session = new Session(edf.sessionId);
+			sessionMap.set(edf.sessionId, session);
+		}
 
-		let summaryData: EDFData;
-		let eventData: EDFData;
+		var addSignal = (signalType: SignalType, edf: EDFData) => {
+			let signal: EDFSignal = edf.signals.get(signalType);
 
-		group.forEach((edfData: EDFData) => {
-			switch (edfData.dataGroup) {
-				case DataGroup.STR:
-					summaryData = edfData;
-					break;
-
-				case DataGroup.EVE:
-					eventData = edfData;
-					break;
-
-				case DataGroup.BRP:
-				case DataGroup.CSL:
-				case DataGroup.PLD:
-				case DataGroup.SAD:
-
-					break;
+			if (signal) {
+				session.signals.set(signalType,
+					{signalId: signalType, units: signal.units, samplesPerPeriod: signal.samplesPerPeriod, samples: signal.scaledSamples});
 			}
+		};
 
-			eventData.annotations;
-		});
+		switch (edf.dataGroup) {
+			case DataGroup.STR:
+				break;
+
+			case DataGroup.EVE:
+				break;
+
+			case DataGroup.BRP: // High Resolution Graph Data
+				addSignal(BRPSignalType.FLOW, edf);
+				addSignal(BRPSignalType.MASK_PRESSURE, edf);
+
+				break;
+
+			case DataGroup.PLD: // Low Resolution Graph Data
+				addSignal(PLDSignalType.INSPIRATORY_PRESSURE, edf);
+				if (!edf.signals.has(PLDSignalType.MASK_PRESSURE)) {
+					addSignal(PLDSignalType.MASK_PRESSURE, edf);
+				}
+
+				break;
+
+			case DataGroup.CSL:
+			case DataGroup.SAD:
+				break;
+		}
 
 		return sessionMap;
 	}
